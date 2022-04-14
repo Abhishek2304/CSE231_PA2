@@ -2,6 +2,21 @@ import {compile, run} from './compiler';
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+  var importObject = {
+    imports: {
+      print: (arg : any) => {
+        console.log("Logging from WASM: ", arg);
+        const elt = document.createElement("pre");
+        document.getElementById("output").appendChild(elt);
+        elt.innerText = arg;
+        return arg;
+      },
+      abs: Math.abs,
+      max: Math.max,
+      min: Math.min,
+      pow: Math.pow
+    },
+  };
   const runButton = document.getElementById("run");
   const userCode = document.getElementById("user-code") as HTMLTextAreaElement;
   runButton.addEventListener("click", async () => {
